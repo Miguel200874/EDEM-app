@@ -1,7 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './components/Layout';
 import HomeScreen from './components/HomeScreen';
 import ChatScreen from './components/ChatScreen';
 import BibleScreen from './components/BibleScreen';
@@ -24,7 +22,7 @@ const SplashScreen: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
       </div>
       <h1 className="text-4xl font-serif text-gray-800 mb-2">EDEM</h1>
       <p className="text-edem-gold font-serif italic mb-12">"No princípio, Deus..."</p>
-      
+
       <div className="absolute bottom-16 text-gray-400 text-sm animate-pulse">
         No Éden, tudo começou.
       </div>
@@ -52,10 +50,9 @@ const App: React.FC = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Efeito para garantir que o app sempre inicie na home quando aberto/recarregado
+  // Garante que sempre abra na home
   useEffect(() => {
     if (!showSplash && session) {
-      // Força o roteamento para a raiz caso o usuário entre em uma URL profunda
       if (window.location.hash !== '#/') {
         window.location.hash = '#/';
       }
@@ -82,16 +79,14 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/chat" element={<ChatScreen />} />
-          <Route path="/bible" element={<BibleScreen />} />
-          <Route path="/favorites" element={<FavoritesScreen />} />
-          <Route path="/profile" element={<ProfileScreen />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Layout>
+      <Routes>
+        <Route path="/" element={<HomeScreen />} />
+        <Route path="/chat" element={<ChatScreen />} />
+        <Route path="/bible" element={<BibleScreen />} />
+        <Route path="/favorites" element={<FavoritesScreen />} />
+        <Route path="/profile" element={<ProfileScreen />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </Router>
   );
 };
